@@ -54,7 +54,7 @@ docker-compose -f docker-compose.prod.yml --env-file .env.prod up
 11. Correr imagen de docker desde el docker hub
 
 ```
-docker run -p 3000:3000 --env-file=.env.prod stiwar1098/talachapp-api:1.0.0
+docker run -p 3000:3000 --env-file=.env.prod stiwar1098/metatax-api:1.0.0
 ```
 
 ## Cambiar nombre de la imagen de docker
