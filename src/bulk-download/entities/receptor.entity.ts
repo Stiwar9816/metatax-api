@@ -32,7 +32,7 @@ export class Receptors {
   @Field(()=>String)
   cfdi_use: string;
 
-  @OneToOne(()=> getCfdiClass(), cfdi=> cfdi.receptors)
+  @ManyToOne(()=> getCfdiClass(), cfdi=> cfdi.receptors)
   cfdi: ReturnType<typeof getCfdiClass>;
 
 }

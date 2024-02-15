@@ -3,9 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryColumn,
 } from 'typeorm';
 import { Transmitter, Receptors, Concepts, Taxes } from './index';
@@ -98,18 +96,16 @@ export class Cfdi {
 
   //Relations
 
-  @ManyToOne(() => Transmitter, (transmitter) => transmitter.cfdi, {lazy:true, eager:true})
-  @JoinColumn({name: 'transmitter_id'})
+  @OneToMany(() => Transmitter, (transmitter) => transmitter.cfdi, {lazy:true, eager:true, cascade: true })
   transmitters: Transmitter;
 
-  @ManyToOne(() => Receptors, (receptors) => receptors.cfdi, {lazy:true, eager:true})
-  @JoinColumn({name: 'receptor_id'})
+  @OneToMany(() => Receptors, (receptors) => receptors.cfdi, {lazy:true, eager:true, cascade: true })
   receptors: Receptors;
 
-  @OneToMany(() => Concepts, (concepts) => concepts.cfdi, {lazy:true, eager:true})
+  @OneToMany(() => Concepts, (concepts) => concepts.cfdi, {lazy:true, eager:true, cascade: true })
   concepts: Concepts[];
 
-  @OneToMany(() => Taxes, (tax) => tax.cfdi, {lazy:true, eager:true})
+  @OneToMany(() => Taxes, (tax) => tax.cfdi, {lazy:true, eager:true, cascade: true })
   taxes: Taxes[];
 }
 

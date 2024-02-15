@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { getTaxesClass } from './taxes.entity';
 
 
@@ -8,7 +8,7 @@ import { getTaxesClass } from './taxes.entity';
 export class Retentions {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => Int, { description: 'Example field (placeholder)' })
-  tax_id: number;
+  retention_id: number;
 
   @Column('int')
   @Field(()=>Int)
@@ -19,5 +19,6 @@ export class Retentions {
   amout:number;
 
   @ManyToOne(() => getTaxesClass(), tax => tax.tax)
+  @JoinColumn({name: 'taxId'})
   taxes: ReturnType<typeof getTaxesClass>;
 }
