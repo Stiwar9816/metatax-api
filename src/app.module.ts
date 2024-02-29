@@ -10,7 +10,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { BulkDownloadModule } from './bulk-download/bulk-download.module';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot(),
