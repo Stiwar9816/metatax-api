@@ -9,6 +9,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { BulkDownloadModule } from './bulk-download/bulk-download.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 
 @Module({
@@ -42,6 +44,8 @@ import { BulkDownloadModule } from './bulk-download/bulk-download.module';
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     BulkDownloadModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
