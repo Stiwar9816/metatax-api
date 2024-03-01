@@ -2,10 +2,48 @@ import { Module } from '@nestjs/common';
 import { BulkDownloadService } from './bulk-download.service';
 import { BulkDownloadResolver } from './bulk-download.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cfdi, Concepts, Receptors, Retentions, Taxes, Transmitter } from './entities';
+import {
+  Cfdi,
+  Concepts,
+  Digital_tax_stamp,
+  IssuerPayroll,
+  PaymentRelatedDocument,
+  Payments,
+  Payroll,
+  PayrollDeduction,
+  PayrollOtherPayments,
+  PayrollPerceptions,
+  ReceiverPayroll,
+  Receptors,
+  RelatedCfdi,
+  TaxConcepts,
+  TaxesTrasnfers,
+  TaxesWithholdings,
+  Transmitter,
+} from './entities';
 
 @Module({
   providers: [BulkDownloadResolver, BulkDownloadService],
-  imports: [TypeOrmModule.forFeature([Cfdi,Transmitter,Receptors,Concepts,Taxes,Retentions])]
+  imports: [
+    TypeOrmModule.forFeature([
+      Cfdi,
+      Concepts,
+      Digital_tax_stamp,
+      IssuerPayroll,
+      PaymentRelatedDocument,
+      Payments,
+      Payroll,
+      PayrollDeduction,
+      PayrollOtherPayments,
+      PayrollPerceptions,
+      ReceiverPayroll,
+      Receptors,
+      RelatedCfdi,
+      TaxConcepts,
+      TaxesTrasnfers,
+      TaxesWithholdings,
+      Transmitter,
+    ]),
+  ],
 })
 export class BulkDownloadModule {}

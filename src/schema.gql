@@ -2,39 +2,72 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Scheme where user cfdi information is stored of the services of sat"""
 type Cfdi {
   """Id UUID of digital tax stamping"""
   id: String!
-  issue_date: DateTime!
 
-  """Certificate number  of CFDI"""
-  certificate_number: Float!
+  """"""
+  certificate: String!
 
-  """Payment conditions of CFDI"""
-  payment_conditions: String!
+  """Expresa si el comprobante ampara una operación de exportación."""
+  exportation: Int!
 
-  """subtotal CFDI"""
-  subtotal: Float!
+  """
+  Fecha y hora de expedición del CFDI. Debe corresponder con la hora local donde se expide el comprobante.
+  """
+  date: DateTime!
+
+  """
+  Clave del método de pago que aplica para este comprobante fiscal digital por Internet, conforme al Artículo 29-A
+      fracción VII incisos a y b del CFF.
+  """
+  payment_method: String!
+
+  """
+  Folio del comprobante para control interno del contribuyente, acepta una cadena de caracteres.
+  """
+  folio: String!
+
+  """
+  Clave de la forma de pago de los bienes o servicios amparados por el comprobante.
+  """
+  payment_form: String!
+
+  """
+  Código postal del lugar de expedición del comprobante (domicilio de la matriz o de la sucursal).
+  """
+  place_of_expedition: String!
 
   """Currency type"""
   currency: String!
 
+  """Certificate number of CFDI"""
+  certificate_number: Float!
+
+  """"""
+  stamp: String!
+
+  """
+  Serie para control interno del contribuyente. Este atributo acepta una cadena de caracteres.
+  """
+  series: String!
+
+  """"""
+  exchange_type: String!
+
+  """Clave del efecto del CFDI para el contribuyente emisor."""
+  proof_type: String!
+
+  """subtotal CFDI"""
+  subtotal: Float!
+
   """Total CDFI invoice amount"""
   total: Float!
 
-  """CFDI voucher type"""
-  voucher_type: String!
-
-  """Number exportatcion CFDI"""
-  exportation: Int!
-  payment_method: String!
-  expedition_place: Int!
-  total_taxes_tranferred: Float!
-  total_taxes_withheld: Float!
-  timbrado_date: DateTime!
-  prov_cerfit_rfc: String!
-  certifi_sat_number: String!
+  """
+  Versión del estándar bajo el que se encuentra expresado el comprobante.
+  """
+  version: Float!
 }
 
 """
