@@ -12,32 +12,37 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
 
-  @Query(() => [User], { name: 'user' })
-  findAll() {
+  @Query(() => [User], { name: 'findAllUsers',description: 'search for all users'})
+  @UseGuards(JwtAuthGuard)
+  findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
  
   @Query(() => User, {
-    name: 'user',
+    name: 'findOneUser',
     description: 'Search for a user by a unique ID',
   })
   @UseGuards(JwtAuthGuard)
   findOne(
     @Args('id', { type: () => String }, ParseUUIDPipe) id: string,
-    @CurrentUser([UserRoles.Administrador, UserRoles.superAdmin]) user: User,
   ): Promise<User> {
     return this.userService.findOneById(id);
   }
 
 
-  @Mutation(() => User)
+  @Mutation(() => User,{
+    name: 'updateUser',
+    description: 'Updates the data of a user by a unique ID',
+  })
+  @UseGuards(JwtAuthGuard)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.userService.update(updateUserInput.id, updateUserInput);
   }
 
   @Mutation(() => User)
-  removeUser(@Args('id', { type: () => String }) id: string) {
+  @UseGuards(JwtAuthGuard)
+  removeUser(@Args('id', { type: () => String }, ParseUUIDPipe) id: string) {
     return this.userService.remove(id);
   }
 }

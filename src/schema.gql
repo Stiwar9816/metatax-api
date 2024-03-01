@@ -99,18 +99,55 @@ enum DocumentType {
 type Query {
   bulkDownload: [Cfdi!]!
 
+  """search for all users"""
+  findAllUsers: [User!]!
+
   """Search for a user by a unique ID"""
-  user(id: String!): User!
+  findOneUser(id: String!): User!
 }
 
 type Mutation {
   findAll: Cfdi!
+
+  """Updates the data of a user by a unique ID"""
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  """User name"""
+  name: String
+
+  """User Last_name"""
+  last_name: String
+
+  """User Zip"""
+  zip: String
+
+  """User document type"""
+  document_type: DocumentType
+
+  """User document number"""
+  document_num: Float
+
+  """User Phone"""
+  phone: Float
+
+  """User RFC"""
+  rfc: String
+
+  """User Email"""
+  email: String
+
+  """
+  User password that must have a minimum length of 6 digits and the password must have an Uppercase, lowercase letter and a number
+  """
+  password: String
+
+  """User Status"""
+  isActive: Boolean
+
+  """User roles wich can [ admin, user] by default takes the user role"""
+  roles: [String!]
   id: String!
 }
