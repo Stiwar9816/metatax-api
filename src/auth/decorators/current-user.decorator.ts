@@ -53,7 +53,7 @@ export const CurrentUser = createParamDecorator(
     }
 
     throw new ForbiddenException(
-      `User ${user.name} ${user.last_name} need an role valid [${roles}]`,
+      `Usuario: ${user.name} ${user.last_name} necesita tener alguno de los siguientes roles: ${roles}`,
     );
   },
 );
