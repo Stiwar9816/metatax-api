@@ -3,9 +3,9 @@ import { IsBoolean, IsEmail, IsEnum, IsIn, IsNotEmpty, IsNumber, IsPositive, IsS
 import { DocumentType } from "../enums/user-document-type.enum";
 
 
-// @InputType({
-//     description: 'Inputs user register'
-// })
+@InputType({
+    description: 'Inputs user register'
+})
 export class CreateUserDto {
 
   @IsString()

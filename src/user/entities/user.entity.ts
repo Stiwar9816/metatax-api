@@ -41,7 +41,7 @@ export class User {
   @Field(() => String)
   email: string;
 
-  @Column({ type: 'text', select: false })
+  @Column({ type: 'text'})
   @Field(() => String)
   password: string;
 
