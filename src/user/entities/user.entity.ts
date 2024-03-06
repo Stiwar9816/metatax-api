@@ -21,7 +21,7 @@ export class User {
   @Field(() => String)
   zip: string;
 
-  @Column({ type: 'enum', enum: DocumentType}) 
+  @Column({ type: 'enum', enum: DocumentType })
   @Field(() => DocumentType)
   document_type: DocumentType;
 
@@ -33,7 +33,7 @@ export class User {
   @Field(() => Float)
   phone: number;
 
-  @Column({ type: 'text' , unique: true})
+  @Column({ type: 'text', unique: true })
   @Field(() => String)
   rfc: string;
 
@@ -41,7 +41,7 @@ export class User {
   @Field(() => String)
   email: string;
 
-  @Column({ type: 'text'})
+  @Column({ type: 'text' })
   @Field(() => String)
   password: string;
 
@@ -49,19 +49,27 @@ export class User {
   @Field(() => Boolean)
   isActive: boolean;
 
+  @Column({ type: 'bytea' })
+  file_certificated: Buffer;
+
+  @Column({ type: 'bytea' })
+  file_key: Buffer;
+
+  @Column({ type: 'text' })
+  signature_password: String;
+
   @Column({ type: 'text', array: true, default: ['user'] })
   @Field(() => [String])
   roles: string[];
 
- // Convertimos los datos del email a minúsculas
- @BeforeInsert()
- checkFieldsBeforeInsert() {
-   this.email = this.email.toLowerCase().trim();
- }
+  // Convertimos los datos del email a minúsculas
+  @BeforeInsert()
+  checkFieldsBeforeInsert() {
+    this.email = this.email.toLowerCase().trim();
+  }
 
- @BeforeUpdate()
- checkFieldsBeforeUpdate() {
-   this.email = this.email.toLowerCase().trim();
- }
-
+  @BeforeUpdate()
+  checkFieldsBeforeUpdate() {
+    this.email = this.email.toLowerCase().trim();
+  }
 }
