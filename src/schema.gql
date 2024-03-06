@@ -2,6 +2,115 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Cfdi {
+  """Id UUID of digital tax stamping"""
+  id: String!
+
+  """"""
+  certificate: String!
+
+  """Expresa si el comprobante ampara una operación de exportación."""
+  exportation: Int!
+
+  """
+  Fecha y hora de expedición del CFDI. Debe corresponder con la hora local donde se expide el comprobante.
+  """
+  date: DateTime!
+
+  """
+  Clave del método de pago que aplica para este comprobante fiscal digital por Internet, conforme al Artículo 29-A
+      fracción VII incisos a y b del CFF.
+  """
+  payment_method: String!
+
+  """
+  Folio del comprobante para control interno del contribuyente, acepta una cadena de caracteres.
+  """
+  folio: String!
+
+  """
+  Clave de la forma de pago de los bienes o servicios amparados por el comprobante.
+  """
+  payment_form: String!
+
+  """
+  Código postal del lugar de expedición del comprobante (domicilio de la matriz o de la sucursal).
+  """
+  place_of_expedition: String!
+
+  """Currency type"""
+  currency: String!
+
+  """Certificate number of CFDI"""
+  certificate_number: Float!
+
+  """"""
+  stamp: String!
+
+  """
+  Serie para control interno del contribuyente. Este atributo acepta una cadena de caracteres.
+  """
+  series: String!
+
+  """"""
+  exchange_type: String!
+
+  """Clave del efecto del CFDI para el contribuyente emisor."""
+  proof_type: String!
+
+  """subtotal CFDI"""
+  subtotal: Float!
+
+  """Total CDFI invoice amount"""
+  total: Float!
+
+  """
+  Versión del estándar bajo el que se encuentra expresado el comprobante.
+  """
+  version: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: String!
+  name: String!
+  last_name: String!
+  zip: String!
+  document_type: DocumentType!
+  document_num: Float!
+  phone: Float!
+  rfc: String!
+  email: String!
+  password: String!
+  isActive: Boolean!
+  roles: [String!]!
+}
+
+"""Document type allowed in the system [Cedula de ciudadania, Pasaporte]"""
+enum DocumentType {
+  CITIZENSHIP_CARD
+  PASSPORT
+}
+
 type Query {
-  getHello: String!
+  bulkDownload: [Cfdi!]!
+
+  """Search for a user by a unique ID"""
+  user(id: String!): User!
+}
+
+type Mutation {
+  findAll: Cfdi!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: String!
 }

@@ -1,0 +1,17 @@
+export { Cfdi } from './cfdi.entity';
+export { Concepts } from './concept.entity';
+export { Digital_tax_stamp } from './digital-tax-stamp.entity';
+export { IssuerPayroll } from './issuer-payroll.entity';
+export { PaymentRelatedDocument } from './payment-related-document.entity';
+export { Payments } from './payments.entity';
+export { Payroll } from './payroll.entity';
+export { PayrollDeduction } from './payroll-deduction.entity';
+export { PayrollOtherPayments } from './payroll-other-payments.entity';
+export { PayrollPerceptions } from './payroll_perceptions.entity';
+export { ReceiverPayroll } from './receiver-payroll.entity';
+export { Receptors } from './receptor.entity';
+export { RelatedCfdi } from './related-cfdi.entity';
+export { TaxConcepts } from './tax_concepts.entity';
+export { TaxesTrasnfers } from './taxes-transfers.entity';
+export { TaxesWithholdings } from './taxes-withholdings.entity';
+export { Transmitter } from './transmitter.entity';

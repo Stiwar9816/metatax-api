@@ -8,9 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
-
-import { AppResolver } from './app.resolver';
-import { AppService } from './app.service';
+import { BulkDownloadModule } from './bulk-download/bulk-download.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -42,8 +42,11 @@ import { AppService } from './app.service';
       csrfPrevention: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
+    BulkDownloadModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [],
-  providers: [AppResolver,AppService],
+  providers: [],
 })
 export class AppModule {}
