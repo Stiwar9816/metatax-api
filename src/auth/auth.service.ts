@@ -9,7 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
 import { User } from '../user/entities/user.entity';
-import { CreateUserDto, LoginUserDto } from './dto';
+import { CreateUserDto, LoginUserDto, UpdatePasswordAuthDto } from './dto';
 import { JwtPayload } from './interface/jwt-payload.interface';
 
 @Injectable()
@@ -57,20 +57,26 @@ export class AuthService {
     //TODO: Chague authRepository for UserService
     const user = await this.authRepository.findOne({
       where: [{ rfc }, { email }],
-      select: { email: true, rfc: true, password: true, id:true,name:true, roles:true},
+      select: {
+        email: true,
+        rfc: true,
+        password: true,
+        id: true,
+        name: true,
+        roles: true,
+      },
     });
 
-    if (!user)
-      throw new UnauthorizedException('Credentials are not valid (RFC)');
+    if (!user) throw new UnauthorizedException('El Usuario no existe!');
     if (user.email !== email)
-      throw new UnauthorizedException('Credentials are not valid (Email)');
+      throw new UnauthorizedException('La credencial (Email) no es correcta');
     if (user.rfc !== rfc)
-      throw new UnauthorizedException('Credentials are not valid (RFC)');
+      throw new UnauthorizedException('La credencial (RFC) no es correcta');
 
     await this.validateUser(user.rfc);
 
     if (!bcrypt.compareSync(password, user.password)) {
-      throw new BadRequestException('Password not match');
+      throw new BadRequestException('Su contraseña es incorrecta');
     }
     delete user.password;
 
@@ -86,6 +92,34 @@ export class AuthService {
       ...user,
       token,
     };
+  }
+
+  async updatePassword(updaUserPasswordDto: UpdatePasswordAuthDto, id: string) {
+    const { password, newPassword, confirmPassword } = updaUserPasswordDto;
+    const findUser = await this.authRepository.findOneBy({ id });
+
+    if (!bcrypt.compareSync(password, findUser.password))
+      throw new BadRequestException(['Su contraseña actual no coincide']);
+
+    if (bcrypt.compareSync(newPassword, findUser.password))
+      throw new BadRequestException([
+        'Su contraseña actual y la nueva son identicas',
+      ]);
+
+    if (newPassword !== confirmPassword)
+      throw new BadRequestException([
+        'Su nueva contraseña no coincide con su confirmación',
+      ]);
+    try {
+      const updateUser = await this.authRepository.preload({
+        ...findUser,
+      });
+      updateUser.password = bcrypt.hashSync(newPassword, 12);
+
+      return await this.authRepository.save(updateUser);
+    } catch (error) {
+      this.handleDBErrros(error);
+    }
   }
 
   async validateUser(rfc: string): Promise<User> {
