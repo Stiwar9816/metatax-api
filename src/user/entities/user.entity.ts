@@ -1,6 +1,12 @@
-import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
+import { ObjectType, Field, Float } from '@nestjs/graphql';
 import { DocumentType } from '../../../src/auth/enums/user-document-type.enum';
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'users' })
 @ObjectType()
@@ -49,14 +55,14 @@ export class User {
   @Field(() => Boolean)
   isActive: boolean;
 
-  @Column({ type: 'bytea' })
+  @Column({ type: 'bytea', nullable: true })
   file_certificated: Buffer;
 
-  @Column({ type: 'bytea' })
+  @Column({ type: 'bytea', nullable: true })
   file_key: Buffer;
 
-  @Column({ type: 'text' })
-  signature_password: String;
+  @Column({ type: 'text', nullable: true })
+  signature_password: string;
 
   @Column({ type: 'text', array: true, default: ['user'] })
   @Field(() => [String])
