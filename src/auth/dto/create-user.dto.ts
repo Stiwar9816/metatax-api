@@ -7,6 +7,7 @@ import {
   IsIn,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   Matches,
@@ -72,18 +73,21 @@ export class CreateUserDto {
   @Field(() => Boolean, { description: 'User Status' })
   isActive: boolean;
 
-  @IsDefined()
   @IsNotEmpty()
-  file_certificated: Buffer;
+  @IsDefined()
+  @IsOptional()
+  file_certificated?: Buffer;
 
-  @IsDefined()
   @IsNotEmpty()
-  file_key: Buffer;
+  @IsDefined()
+  @IsOptional()
+  file_key?: Buffer;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
-  signature_password: string;
+  @IsOptional()
+  signature_password?: string;
 
   @IsString({ each: true })
   @Field(() => [String], {

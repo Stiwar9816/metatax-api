@@ -11,13 +11,15 @@ import { Repository } from 'typeorm';
 import { User } from '../user/entities/user.entity';
 import { CreateUserDto, LoginUserDto, UpdatePasswordAuthDto } from './dto';
 import { JwtPayload } from './interface/jwt-payload.interface';
+import { UpdateFielDto } from './dto/update-fiel.dto';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly authRepository: Repository<User>,
-    // private readonly userService: UserService
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -99,17 +101,17 @@ export class AuthService {
     const findUser = await this.authRepository.findOneBy({ id });
 
     if (!bcrypt.compareSync(password, findUser.password))
-      throw new BadRequestException(['Su contraseña actual no coincide']);
+      throw new BadRequestException('Su contraseña actual no coincide');
 
     if (bcrypt.compareSync(newPassword, findUser.password))
-      throw new BadRequestException([
+      throw new BadRequestException(
         'Su contraseña actual y la nueva son identicas',
-      ]);
+      );
 
     if (newPassword !== confirmPassword)
-      throw new BadRequestException([
+      throw new BadRequestException(
         'Su nueva contraseña no coincide con su confirmación',
-      ]);
+      );
     try {
       const updateUser = await this.authRepository.preload({
         ...findUser,
@@ -117,6 +119,26 @@ export class AuthService {
       updateUser.password = bcrypt.hashSync(newPassword, 12);
 
       return await this.authRepository.save(updateUser);
+    } catch (error) {
+      this.handleDBErrros(error);
+    }
+  }
+
+  async uploadFiles(fileDto: UpdateFielDto, files, id: string) {
+    const { signature_password } = fileDto;
+    const findUser = await this.userService.findOneById(id);
+    if (!files?.file_key || !files?.file_certificated)
+      throw new BadRequestException(
+        'Asegurese de ingresar un certificado y una llave valida',
+      );
+    try {
+      const updateFileUser = await this.authRepository.preload({
+        ...findUser,
+      });
+      updateFileUser.file_certificated = files?.file_certificated[0].buffer;
+      updateFileUser.file_key = files?.file_key[0].buffer;
+      updateFileUser.signature_password = signature_password;
+      return await this.authRepository.save(updateFileUser);
     } catch (error) {
       this.handleDBErrros(error);
     }
