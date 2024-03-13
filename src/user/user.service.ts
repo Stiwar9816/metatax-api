@@ -44,9 +44,9 @@ export class UserService {
   }
 
   async remove(id: string): Promise<User> {
-   const user= await this.findOneById(id);
+    const user = await this.findOneById(id);
     await this.userRepository.remove(user);
-    return user
+    return user;
   }
 
   // Manejo de excepciones

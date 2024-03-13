@@ -56,7 +56,6 @@ export class AuthService {
 
   async login(loginUserDto: LoginUserDto) {
     const { password, email, rfc } = loginUserDto;
-    //TODO: Chague authRepository for UserService
     const user = await this.authRepository.findOne({
       where: [{ rfc }, { email }],
       select: {
@@ -127,10 +126,6 @@ export class AuthService {
   async uploadFiles(fileDto: UpdateFielDto, files, id: string) {
     const { signature_password } = fileDto;
     const findUser = await this.userService.findOneById(id);
-    if (!files?.file_key || !files?.file_certificated)
-      throw new BadRequestException(
-        'Asegurese de ingresar un certificado y una llave valida',
-      );
     try {
       const updateFileUser = await this.authRepository.preload({
         ...findUser,
@@ -145,7 +140,6 @@ export class AuthService {
   }
 
   async validateUser(rfc: string): Promise<User> {
-    //TODO: Chague authRepository for UserService
     const user = await this.authRepository.findOneByOrFail({ rfc });
     if (!user.isActive)
       throw new UnauthorizedException(
