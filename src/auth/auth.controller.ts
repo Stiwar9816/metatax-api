@@ -17,7 +17,7 @@ import { CurrentUser } from './decorators';
 import { User } from '../user/entities/user.entity';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { FileValidationPipe } from '../common/validations/file-validation.pipe';
+import { FileValidationPipe } from '../common/validations';
 
 @Controller('auth')
 export class AuthController {

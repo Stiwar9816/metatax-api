@@ -90,7 +90,9 @@ type User {
   roles: [String!]!
 }
 
-"""Document type allowed in the system [Cedula de ciudadania, Pasaporte]"""
+"""
+Tipo de documento permitido en el sistema [Cedula de ciudadania, Pasaporte]
+"""
 enum DocumentType {
   CITIZENSHIP_CARD
   PASSPORT

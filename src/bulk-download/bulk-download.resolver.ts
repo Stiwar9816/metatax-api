@@ -1,8 +1,6 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation } from '@nestjs/graphql';
 import { BulkDownloadService } from './bulk-download.service';
 import { Cfdi } from './entities/cfdi.entity';
-import { CreateBulkDownloadInput } from './dto/create-bulk-download.input';
-import { UpdateBulkDownloadInput } from './dto/update-bulk-download.input';
 
 @Resolver(() => Cfdi)
 export class BulkDownloadResolver {
@@ -12,7 +10,6 @@ export class BulkDownloadResolver {
   // createBulkDownload(@Args('createBulkDownloadInput') createBulkDownloadInput: CreateBulkDownloadInput) {
   //   return this.bulkDownloadService.create(createBulkDownloadInput);
   // }
-
   @Query(() => [Cfdi], { name: 'bulkDownload' })
   findAll() {
     return this.bulkDownloadService.findAll();

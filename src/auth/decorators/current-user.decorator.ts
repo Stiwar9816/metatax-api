@@ -12,7 +12,6 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 
 export const CurrentUser = createParamDecorator(
   (roles: UserRoles[] = [], ctx: ExecutionContext) => {
-
     // Validation with HTTP request
     const getUserFromHttpContext = (context: ExecutionContext): User => {
       const request = context.switchToHttp().getRequest();
@@ -20,7 +19,7 @@ export const CurrentUser = createParamDecorator(
     };
     // Validation with GraphQL request
     const getUserFromGraphqlContext = (context: ExecutionContext): User => {
-      const ctx = GqlExecutionContext.create(context); 
+      const ctx = GqlExecutionContext.create(context);
       return ctx.getContext().req.user;
     };
 
